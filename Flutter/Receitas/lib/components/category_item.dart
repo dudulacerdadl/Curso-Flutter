@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/category.dart';
-import '../screens/categories_meals_screen.dart';
+import '../utils/app_routes.dart';
 
 class CategoryItem extends StatelessWidget {
   final Category category;
@@ -9,13 +9,16 @@ class CategoryItem extends StatelessWidget {
 
   void _selectCategory(BuildContext context) {
     // Navegador que usa um push para chamar uma nova tela
-    Navigator.of(context).push(
-      // Comando usado para passar o caminho da nova tela como retorno
-      MaterialPageRoute(
-        builder: (_) {
-          return CategoriesMealsScreen(category);
-        },
-      ),
+    //Navigator.of(context).push(
+    // Comando usado para passar o caminho da nova tela como retorno
+    // MaterialPageRoute(
+    //   builder: (_) {
+    //     return CategoriesMealsScreen(category);
+    //   },
+    // ),
+    Navigator.of(context).pushNamed(
+      AppRoutes.CATEGORIES_MEALS,
+      arguments: category,
     );
   }
 
