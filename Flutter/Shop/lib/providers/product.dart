@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class Product {
+class Product with ChangeNotifier {
   final String id;
   final String title;
   final String description;
@@ -16,4 +16,10 @@ class Product {
     @required this.imageUrl,
     this.isFavorite = false,
   });
+
+  // Método usado para inverter a lógica do favorito, e ao mesmo tempo, notificando por meio di notify
+  void toggleFavorite() {
+    isFavorite = !isFavorite;
+    notifyListeners();
+  }
 }
