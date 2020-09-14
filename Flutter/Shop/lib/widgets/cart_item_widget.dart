@@ -26,6 +26,30 @@ class CartItemWidget extends StatelessWidget {
         ),
       ),
       direction: DismissDirection.endToStart,
+      // Usado para aparecer o Alert do confirmação de exclusão
+      confirmDismiss: (_) {
+        return showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('Tem certeza?'),
+            content: Text('Quer remover o ítem do carrinho?'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Não'),
+                onPressed: () {
+                  Navigator.of(context).pop(false);
+                },
+              ),
+              FlatButton(
+                child: Text('Sim'),
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+              ),
+            ],
+          ),
+        );
+      },
       onDismissed: (_) {
         Provider.of<Cart>(context, listen: false)
             .removeItem(cartItem.productId);
@@ -47,7 +71,8 @@ class CartItemWidget extends StatelessWidget {
               ),
             ),
             title: Text(cartItem.title),
-            subtitle: Text('Total: R\$${cartItem.price * cartItem.quantity}'),
+            subtitle: Text(
+                'Total: R\$${(cartItem.price * cartItem.quantity).toStringAsFixed(2)}'),
             trailing: Text('${cartItem.quantity}x'),
           ),
         ),

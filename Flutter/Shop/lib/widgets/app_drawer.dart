@@ -21,12 +21,23 @@ class AppDrawer extends StatelessWidget {
               );
             },
           ),
+          Divider(),
           ListTile(
             leading: Icon(Icons.payment),
             title: Text('Pedidos'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(
                 AppRoutes.ORDERS,
+              );
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.edit),
+            title: Text('Gerencias Produtos'),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(
+                AppRoutes.PRODUCTS,
               );
             },
           ),
