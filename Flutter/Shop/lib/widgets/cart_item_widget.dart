@@ -66,7 +66,7 @@ class CartItemWidget extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(5),
                 child: FittedBox(
-                  child: Text('R\$${cartItem.price}'),
+                  child: Text('R\$${cartItem.price.toStringAsFixed(2)}'),
                 ),
               ),
             ),
