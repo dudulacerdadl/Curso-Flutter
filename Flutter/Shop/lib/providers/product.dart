@@ -26,18 +26,17 @@ class Product with ChangeNotifier {
     notifyListeners();
   }
 
-  // Método usado para inverter a lógica do favorito, e ao mesmo tempo, notificando por meio di notify
-  Future<void> toggleFavorite() async {
+  // Método usado para inverter a lógica do favorito, e ao mesmo tempo, notificando por meio do notify
+  Future<void> toggleFavorite(String token, String userId) async {
     _toggleFavorite();
 
     try {
-      final String url = '${Constants.BASE_API_URL}/products/$id.json';
+      final String url =
+          '${Constants.BASE_API_URL}/userFavorites/$userId/$id.json?auth=$token';
 
-      final response = await http.patch(
+      final response = await http.put(
         url,
-        body: json.encode({
-          'isFavorite': isFavorite,
-        }),
+        body: json.encode(isFavorite),
       );
 
       if (response.statusCode >= 400) {

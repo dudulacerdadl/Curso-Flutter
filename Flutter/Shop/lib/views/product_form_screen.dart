@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../providers/product.dart';
 import '../providers/products.dart';
 
@@ -20,7 +21,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   @override
   void initState() {
     super.initState();
-    _imageUrlFocusNode.addListener(_updateImageUrl);
+    _imageUrlFocusNode.addListener(_updateImage);
   }
 
   @override
@@ -29,11 +30,12 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
 
     if (_formData.isEmpty) {
       final product = ModalRoute.of(context).settings.arguments as Product;
+
       if (product != null) {
         _formData['id'] = product.id;
         _formData['title'] = product.title;
         _formData['description'] = product.description;
-        _formData['price'] = product.price.toStringAsFixed(2);
+        _formData['price'] = product.price;
         _formData['imageUrl'] = product.imageUrl;
 
         _imageUrlController.text = _formData['imageUrl'];
@@ -43,7 +45,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     }
   }
 
-  void _updateImageUrl() {
+  void _updateImage() {
     if (isValidImageUrl(_imageUrlController.text)) {
       setState(() {});
     }
@@ -64,7 +66,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     super.dispose();
     _priceFocusNode.dispose();
     _descriptionFocusNode.dispose();
-    _imageUrlFocusNode.removeListener(_updateImageUrl);
+    _imageUrlFocusNode.removeListener(_updateImage);
     _imageUrlFocusNode.dispose();
   }
 
@@ -175,8 +177,8 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                         FocusScope.of(context)
                             .requestFocus(_descriptionFocusNode);
                       },
-                      onSaved: (value) => _formData['price'] =
-                          double.parse(value).toStringAsFixed(2),
+                      onSaved: (value) =>
+                          _formData['price'] = double.parse(value),
                       validator: (value) {
                         bool isEmpty = value.trim().isEmpty;
                         var newPrice = double.tryParse(value);
@@ -198,7 +200,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                       onSaved: (value) => _formData['description'] = value,
                       validator: (value) {
                         bool isEmpty = value.trim().isEmpty;
-                        bool isInvalid = value.trim().length <= 10;
+                        bool isInvalid = value.trim().length < 10;
 
                         if (isEmpty || isInvalid) {
                           return 'Informe uma Descrição válida, com no mínimo 10 caracteres!';
@@ -225,6 +227,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
                             validator: (value) {
                               bool isEmpty = value.trim().isEmpty;
                               bool isInvalid = !isValidImageUrl(value);
+
                               if (isEmpty || isInvalid) {
                                 return 'Informe uma URL válida!';
                               }
