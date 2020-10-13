@@ -1,4 +1,4 @@
-class AuthExceotion implements Exception {
+class AuthException implements Exception {
   static const Map<String, String> errors = {
     'EMAIL_EXISTS': 'E-mail já existe!',
     'OPERATION_NOT_ALLOWED': 'Operação não permitida!',
@@ -10,7 +10,7 @@ class AuthExceotion implements Exception {
 
   final String key;
 
-  const AuthExceotion(this.key);
+  const AuthException(this.key);
 
   @override
   String toString() {

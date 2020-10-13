@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:Shop/widgets/auth_cart.dart';
+import 'package:Shop/widgets/auth_card.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatelessWidget {

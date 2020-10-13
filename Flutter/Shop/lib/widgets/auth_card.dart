@@ -14,8 +14,8 @@ class _AuthCardState extends State<AuthCard> {
   GlobalKey<FormState> _form = GlobalKey();
   bool _isLoading = false;
   AuthMode _authMode = AuthMode.Login;
-
   final _passwordController = TextEditingController();
+  
   final Map<String, String> _authData = {
     'email': '',
     'password': '',
@@ -64,7 +64,7 @@ class _AuthCardState extends State<AuthCard> {
           _authData['password'],
         );
       }
-    } on AuthExceotion catch (error) {
+    } on AuthException catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
       _showErrorDialog('Ocorreu um error inesperado!');
